@@ -25,14 +25,12 @@ class node():
         return self.f_cost >= other.f_cost
 
 
-    # def __lt__(self, other):
-    #     # print("less than")
-    #     return self.g_cost < other.g_cost
-    
-    
-    # def __eq__(self, other):
-    #     print("equal")
-    #     return self.f_cost == other.f_cost
+    def print_values(self, num_node):
+        print(f"-----Node {num_node}")
+        print(f"f   {self.coor}")
+        print(f"f   {self.f_cost}")
+        print(f"h   {self.h_cost}")
+        
 
 
 def check_the_lower(position):
@@ -44,13 +42,6 @@ def check_the_lower(position):
     while len(visited_new) != 1:
         if visited_new[0] >= visited_new[-1]:
             visited_new.remove(visited_new[0])
-        
-        # elif visited_new[0] == visited_new[-1]:
-        #     print("True")
-        #     if visited_new[-1] < visited_new[0]:
-        #         visited_new.remove(visited_new[0])
-        #     else:
-        #         visited_new.remove(visited_new[-1])
         else:
             visited_new.remove(visited_new[-1])
 
@@ -79,6 +70,7 @@ def bfs_solve():
     turtle.penup()
     space.remove((0,0))
     turtle.delay(1)
+    index = 2
     while True:
         h_cost = total.h_cost
         for each_side in four_ways:
@@ -92,9 +84,11 @@ def bfs_solve():
             # print(h_cost)
             new_node = node()
             new_node.create_node(coor[1],h_cost + 1, coor)
+            new_node.print_values(index)
             turtle.goto(coor)
             turtle.stamp()
             visited.append(new_node)
+            index += 1
             # time.sleep(5)
       
         position, total = check_the_lower(position)
