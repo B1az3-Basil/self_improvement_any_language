@@ -21,18 +21,33 @@ class person{
         }
 };
 
+vector<string> split(char to_split ,string word){
+    vector<string> list; 
+    string temp;
+    for (char letter: word){
+        if (letter == to_split){
+            temp = "";
+            list.push_back(temp);
+            continue;
+        }
+        temp += letter;
+    }
+    return list;
+}
+
 vector<string> run_command(string command){
     char buffer[128];
-    vector<string> result;
+    string result;
     FILE *pipe = popen(command.c_str(),"r");
     // if (!pipe) return  vector<string>;
-    while (!feof(pipe)) if (fgets(buffer, 128, pipe) != NULL) { result.push_back(buffer);}
+    // cout << fgets(buffer, 128, pipe) << endl;
+    while (!feof(pipe)) if (fgets(buffer, 128, pipe) != NULL)  result += buffer;
     pclose(pipe);
-    return result;
+    return split('\n',result);
 }
 
 int main(){
     // int command = system("wtc-lms");
-    printf("%s", run_command("wtc-lms")[1].c_str());
+    printf("%s", run_command("wtc-lms")[0].c_str());
     return 0;
 }
