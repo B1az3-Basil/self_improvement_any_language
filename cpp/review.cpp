@@ -26,14 +26,16 @@ vector<string> split(char to_split ,string word){
     string temp;
     for (char letter: word){
         if (letter == to_split){
-            temp = "";
             list.push_back(temp);
+            temp = "";
             continue;
         }
         temp += letter;
     }
     return list;
 }
+
+
 
 vector<string> run_command(string command){
     char buffer[128];
@@ -42,12 +44,15 @@ vector<string> run_command(string command){
     // if (!pipe) return  vector<string>;
     // cout << fgets(buffer, 128, pipe) << endl;
     while (!feof(pipe)) if (fgets(buffer, 128, pipe) != NULL)  result += buffer;
+    // printf("%s", result.c_str());
     pclose(pipe);
     return split('\n',result);
 }
 
 int main(){
     // int command = system("wtc-lms");
-    printf("%s", run_command("wtc-lms")[0].c_str());
+    vector<string> all_review_list = run_command("wtc-lms reviews");
+    for (string a: all_review_list) cout << a.find("Assigned-") << endl;
+    printf("%s", all_review_list[0].c_str());
     return 0;
 }
