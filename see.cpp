@@ -2,7 +2,8 @@
 #include <fstream>
 #include <cstring>
 #include <vector>
-using namespace std;
+#include "person_data.hpp"
+using namespace std; 
 
 class Person{
 char name[80];
@@ -18,11 +19,11 @@ public:
     }
 
     void whoAreYou(){
-        cout << "hi am "<<name<<" and i am "<<  age<< " nyears old"<< endl;
+    cout << "hi am "<<name<<" and i am "<<age<<" nyears old"<<endl;
     }
     void change(){
         strcpy(name,"xxxx");
-        age = 1000;
+    age = 1000;
     }
 
 };
@@ -30,30 +31,32 @@ public:
 
 int main()
 {
+vector<Person> temp;
+
+Person anil("anil",24);
+temp.push_back(anil);
+Person a("basil",24);
+temp.push_back(a);
+
+fstream file("person.bin",ios::binary | ios::in | ios::out | ios::trunc );
+if(!file.is_open()){
+    cout << "error while opening the file";
+}else{
+    for(Person& y: temp) file.write((char *)&y,sizeof(Person));
+
+    file.seekg(0);
     vector<Person> test;
-    
-    Person anil("basil",24);
-    test.push_back(anil);
-    fstream file("person.bin",ios::binary | ios::in | ios::out | ios::trunc );
-    if(!file.is_open()){
-        cout << "error while opening the file";
-    }else{
-        file.write((vector<Person>)&test,sizeof(vector<Person>));
+    Person temp;
+    while(file.read((char *)&temp,sizeof(Person))) test.push_back(temp);
 
-        file.seekg(0);
+// anil.whoAreYou();
+    for (Person& a: test) a.whoAreYou();
 
-        vector<Person> tests;
-        file.read((vector<Person>)&test,sizeof(vector<Person>));
 
-        printf("%d", test.size());
-        
-
-        // test[0].change();
-
-        // test[0].whoAreYou();
-       
-        file.close();
-    }
+file.close();
+}
 
    return 0;
 }
+
+ 
