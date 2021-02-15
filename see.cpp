@@ -2,7 +2,7 @@
 #include <fstream>
 #include <cstring>
 #include <vector>
-#include "person_data.hpp"
+
 using namespace std; 
 
 class Person{
@@ -42,7 +42,7 @@ fstream file("person.bin",ios::binary | ios::in | ios::out | ios::trunc );
 if(!file.is_open()){
     cout << "error while opening the file";
 }else{
-    for(Person& y: temp) file.write((char *)&y,sizeof(Person));
+    for(Person& y: temp) file.write((char *)y,&sizeof(Person));
 
     file.seekg(0);
     vector<Person> test;
