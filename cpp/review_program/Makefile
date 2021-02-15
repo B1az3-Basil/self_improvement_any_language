@@ -1,8 +1,8 @@
 
-SRC = review.cpp
+SRC = review.cpp 
 NAME = review
 
-all:fclean
+all:
 	g++ -o $(NAME) $(SRC)
 
 
