@@ -42,7 +42,7 @@ fstream file("person.bin",ios::binary | ios::in | ios::out | ios::trunc );
 if(!file.is_open()){
     cout << "error while opening the file";
 }else{
-    for(Person& y: temp) file.write((char *)y,&sizeof(Person));
+    for(Person& y: temp) file.write((char *)&y,sizeof(Person));
 
     file.seekg(0);
     vector<Person> test;
@@ -50,6 +50,7 @@ if(!file.is_open()){
     while(file.read((char *)&temp,sizeof(Person))) test.push_back(temp);
 
 // anil.whoAreYou();
+    printf("hello\n");
     for (Person& a: test) a.whoAreYou();
 
 
