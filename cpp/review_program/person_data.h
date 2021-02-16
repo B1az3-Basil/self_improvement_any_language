@@ -5,18 +5,15 @@
 #include <cstring>
 #include <vector>
 
-
-using namespace std; 
-
+using namespace std;
 
 class person{
-    private:
+    public:
         string date;
         string name;
         string ussd;
         string location;
         string email_address;
-    public:
         person(){
             date = "";
             name = "";
@@ -26,7 +23,7 @@ class person{
         }
 
 
-        void persons(string date, string name, string ussd, string location, string email){
+        person(string date, string name, string ussd, string location, string email){
             this->date = date;
             this->name = name;
             this->ussd = ussd;
@@ -39,6 +36,9 @@ class person{
             return name;
         }
 };
+
+
+vector<person> read_file();
 void write_file_in(vector<person> temp);
 
 #endif
