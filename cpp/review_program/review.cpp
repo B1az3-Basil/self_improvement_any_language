@@ -135,16 +135,16 @@ void invite(){
             else if (in("Location", a)) loca = a.substr(a.find(' ') + 1, 100); 
         }
 
-        system("echo '*' >> data.txt");
+        system("echo '*' >> /home/basil/bin/data.txt");
         string d = "echo " + email_name.substr(0,  email_name.find('@')) + " >> data.txt";
         system(d.c_str());
-        d = "echo " + email_name + " >> data.txt";
+        d = "echo " + email_name + " >> /home/basil/bin/data.txt";
         system(d.c_str());
-        d = "echo " + get_date() + " >> data.txt";
+        d = "echo " + get_date() + " >> /home/basil/bin/data.txt";
         system(d.c_str());
-        d = "echo " + the_hash + " >> data.txt";
+        d = "echo " + the_hash + " >> /home/basil/bin/data.txt";
         system(d.c_str());
-        d = "echo " + loca + " >> data.txt";
+        d = "echo " + loca + " >> /home/basil/bin/data.txt";
         system(d.c_str());
         string ans;
         cout << "Do you want more: ";
@@ -195,8 +195,9 @@ void review(vector<person> the_list){
         Modifier def(DEFAULT);
         cout << "Enter the name: ";
         cin >> name;
+        string location;
         if (name == "exit") break;
-        for (person& each: the_list) if (each.name == name) {string run = "code " + each.location; system(run.c_str()); code = each.ussd;}
+        for (person& each: the_list) if (each.name == name) {location = each.location; string run = "code " + each.location; system(run.c_str()); code = each.ussd;}
         if (code == "") cout << red << "NO MATCH" << def << endl;
         else{ 
             while (true){
@@ -213,6 +214,8 @@ void review(vector<person> the_list){
                     cout << "grade!: ";
                     cin >> command; 
                     string run = "wtc-lms grade_review " + code + ' ' + command;
+                    system(run.c_str());
+                    run = "rm -rf " + location;
                     system(run.c_str());
                     break;
                 }

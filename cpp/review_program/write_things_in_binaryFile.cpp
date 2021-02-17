@@ -5,7 +5,7 @@ vector<person> read_file(){
     vector <person> ofter;
     string myText;
     string array[5];
-    ifstream MyReadFile("data.txt");
+    ifstream MyReadFile("/home/basil/bin/data.txt");
     getline (MyReadFile, myText);
     while (myText == "*") {
        getline (MyReadFile, array[0]);
@@ -25,7 +25,7 @@ vector<person> read_file(){
 
 void write_file_in(vector<person> temp){
     ofstream myfile;
-    myfile.open ("data.txt");
+    myfile.open ("/home/basil/bin/data.txt");
     for (auto a: temp){
         myfile << "*\n";
         myfile << a.name + "\n";
