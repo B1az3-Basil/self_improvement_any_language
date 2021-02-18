@@ -203,7 +203,7 @@ void review(vector<person> the_list){
             while (true){
                 string command = "";
                 cout << "What to do: ";
-                cin >> command;
+                getline(cin, command);
                 if (command == "comment"){
                     cout << "say!: ";
                     cin >> command; 
