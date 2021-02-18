@@ -196,6 +196,7 @@ void review(vector<person> the_list){
         cout << "Enter the name: ";
         cin >> name;
         string location;
+        int i = 1;
         if (name == "exit") break;
         for (person& each: the_list) if (each.name == name) {location = each.location; string run = "code " + each.location; system(run.c_str()); code = each.ussd;}
         if (code == "") cout << red << "NO MATCH" << def << endl;
@@ -210,6 +211,7 @@ void review(vector<person> the_list){
                     string run = "wtc-lms add_comment " + code + ' ' + command;
                     system(run.c_str());
                 }
+                
                 else if (command == "grade"){
                     cout << "grade!: ";
                     cin >> command; 
@@ -217,6 +219,24 @@ void review(vector<person> the_list){
                     system(run.c_str());
                     run = "rm -rf " + location;
                     system(run.c_str());
+                    vector<person> count = read_file();
+                    
+                    
+                    for (auto a: count) {
+                        if (a.name == name) {
+                            int sum = i + 6;
+                            command = "sed -i '";
+                            command.append(to_string(i));
+                            command.append(",");
+                            command.append(to_string(sum));
+                            command.append("d' ");
+                            command.append("/home/basil/bin/data.txt");
+                        
+                            // cout << command << endl;
+                            system(command.c_str());
+                        }
+                        i += 6;
+                    }
                     break;
                 }
             }
