@@ -47,12 +47,12 @@ string get_date(){
 
 bool the_late_ones(string date){
     time_t now = time(0);
-    char* dt = ctime(&now);
-
-    return strcmp(date.c_str(), dt) > 0;
+    tm *ltm = localtime(&now);
+    string dt = to_string(1900 + ltm->tm_year) + '-' + to_string(1 + ltm->tm_mon) + '-' + to_string(ltm->tm_mday);
+    return strcmp(date.c_str(), dt.c_str()) < 0;
 }
 
-vector<person> late_cool(vector<person> the_list){
+pair<vector<person>, vector<person>> late_cool(vector<person> the_list){
     vector<person> late;
     vector<person> the_cool_ones;
     for (person& each: the_list){
@@ -62,7 +62,8 @@ vector<person> late_cool(vector<person> the_list){
         }
         the_cool_ones.push_back(each);
     }
-    return late, the_cool_ones;
+
+    return make_pair(late, the_cool_ones);
 }
 
 void invite(){
@@ -208,7 +209,7 @@ void review(vector<person> the_list){
                 if (command == "comment"){
                     cout << "say!: ";
                     getline(cin, command);
-                    string run = "wtc-lms add_comment " + code + ' ' + command;
+                    string run = "wtc-lms add_comment " + code + ' ' + '"' +  command + '"';
                     system(run.c_str());
                 }
                 
@@ -248,23 +249,23 @@ void review(vector<person> the_list){
 
 int main(){
     
-    vector <person> late , the_cool_ones = late_cool(read_file()); 
+    pair<vector<person>, vector<person>> the_cool_ones = late_cool(read_file()); 
     Modifier red(RED);
     Modifier green(GREEN);
     Modifier def(DEFAULT);
     cout << "------------------- " << red << "NOT RESPONDING" << def << " -------------------" << endl;
-    if (late.size() == 0) cout << "............... " << green << "OK" << def << " ............... " << endl;
+    if (the_cool_ones.first.size() == 0) cout << "............... " << green << "OK" << def << " ............... " << endl;
     else {
-        for(person& each: late){
+        for(person& each: the_cool_ones.first){
             std::string stuff(15 - each.name.size(), ' ');
             cout << each.name << stuff << "| " << each.ussd << endl;
         }
     }
 
     cout << "----------------------- " << green << "REVIEW" << def << " -----------------------" << endl;
-    if (the_cool_ones.size() == 0) cout << "............... " << red << "Empty" << def << "............... " << endl;
+    if (the_cool_ones.second.size() == 0) cout << "............... " << red << "Empty" << def << "............... " << endl;
     else {
-        for(person& each: the_cool_ones) {
+        for(person& each: the_cool_ones.second) {
             std::string stuff(15 - each.name.size(), ' ');
             cout << each.name << stuff << "| " << each.ussd << endl;
         }
@@ -277,8 +278,8 @@ int main(){
         if (command == "review"){
             cout << "which: ";
             cin >> command;
-            if (command == "late") review(late);
-            else review(the_cool_ones);
+            if (command == "late") review(the_cool_ones.first);
+            else review(the_cool_ones.second);
         }
         else if (command == "invite") invite();
         else if (command == "sync") sync();
