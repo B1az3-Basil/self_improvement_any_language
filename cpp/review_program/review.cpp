@@ -112,7 +112,7 @@ void invite(){
         chooses = a + choose.substr(1, choose.size() - 1);
         for (string a: all_review_list) {
             if (in("Invited", a) && in(chooses, a)){
-                if (num != '0' && in("Iteration " + num, a)){
+                if (num != '0' && in("Iteration " + to_string(num), a)){
                     hash.push_back(a.substr(a.find('(') + 1, a.find(')') - a.find('(') - 1));
                     continue;
                 }
@@ -136,7 +136,7 @@ void invite(){
         }
 
         system("echo '*' >> /home/basil/bin/data.txt");
-        string d = "echo " + email_name.substr(0,  email_name.find('@')) + " >> data.txt";
+        string d = "echo " + email_name.substr(0,  email_name.find('@')) + " >> /home/basil/bin/data.txt";
         system(d.c_str());
         d = "echo " + email_name + " >> /home/basil/bin/data.txt";
         system(d.c_str());
@@ -207,7 +207,7 @@ void review(vector<person> the_list){
                 getline(cin, command);
                 if (command == "comment"){
                     cout << "say!: ";
-                    cin >> command; 
+                    getline(cin, command);
                     string run = "wtc-lms add_comment " + code + ' ' + command;
                     system(run.c_str());
                 }
@@ -224,7 +224,7 @@ void review(vector<person> the_list){
                     
                     for (auto a: count) {
                         if (a.name == name) {
-                            int sum = i + 6;
+                            int sum = i + 5;
                             command = "sed -i '";
                             command.append(to_string(i));
                             command.append(",");
