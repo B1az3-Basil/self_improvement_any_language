@@ -86,7 +86,10 @@ void invite(){
             "Hangman - Iteration 2",
             "Hangman - Iteration 3", 
             "Recursion", 
-            "Bug"
+            "Bug",
+            "Encapsulation > Mastermind",
+            "Unit Testing with Java > FizzBuzz",
+            "Encapsulation > Hangman"
         };
     vector<string> hssd;
     vector<string> hash;
@@ -105,7 +108,7 @@ void invite(){
         char num;
         cout << "Topic: ";
         cin >> choose >> num;
-        string topic = "hangmanpyramidoutlinerobotmastermindaccountingwordfixrecursion";
+        string topic = "hangmanpyramidoutlinerobotmastermindaccountingwordfixrecursionencapsulation>hangmanencapsulation>mastermindfizzBuzz";
     
         if (!in(choose, topic)) continue;
         
