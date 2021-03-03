@@ -101,16 +101,18 @@ void invite(){
     }
     int y = 0;
     while (true){
-        string choose;
+        string choose = "";
         string chooses = "";
         
         
-        char num;
+        char num = 'a';
         cout << "Topic: ";
-        cin >> choose >> num;
-        string topic = "hangmanpyramidoutlinerobotmastermindaccountingwordfixrecursionencapsulation>hangmanencapsulation>mastermindfizzBuzz";
-    
-        if (!in(choose, topic)) continue;
+        // cin.ignore();
+        getline(cin, choose);
+        // cin >> num;
+        string topic = "hangmanpyramidoutlinerobotmastermindaccountingwordfixrecursionencapsulation > Hangmanencapsulation > MastermindfizzBuzz";
+        cout << choose << endl;
+        if (!in(choose, topic)) {printf("Not there"); continue;}
         
         char a = choose.c_str()[0] - 32; 
         chooses = a + choose.substr(1, choose.size() - 1);
